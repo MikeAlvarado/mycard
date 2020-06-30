@@ -1,29 +1,62 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch,
+  Redirect,
+  useLocation
+} from "react-router-dom";
+import firebase from './firebase/firebase'
+
 import './App.css';
 
-function App() {
+// UI
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { CssBaseline, CircularProgress } from '@material-ui/core';
+
+// Our Views
+import Logon from "./views/Logon";
+import LandingPage from "./views/LandingPage";
+
+
+const theme = createMuiTheme();
+
+function NoMatch() {
+  let location = useLocation();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hello Chava, this site is under construction.
-        </p>
-        <p>
-          Powered by reactjs and developed by Mike Alvarado
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h3>
+        No match for <code>{location.pathname}</code>
+      </h3>
     </div>
   );
 }
 
-export default App;
+export default function App() {
+
+  const [firebaseInitialized, setFirebaseInitialized] = useState(false)
+
+	useEffect(() => {
+		firebase.isInitialized().then(val => {
+			setFirebaseInitialized(val)
+		})
+	})
+
+  return firebaseInitialized !== false ? (
+    <MuiThemeProvider theme={theme}>
+    <CssBaseline />
+      <Router>
+        <Switch>
+          <Route path={`${process.env.PUBLIC_URL}/login`} exact component={Logon} />
+          <Route path={`${process.env.PUBLIC_URL}/`} exact component={LandingPage} />
+          <Route path="*">
+            <NoMatch />
+          </Route>
+        </Switch>
+      </Router>
+    </MuiThemeProvider>
+  ): <div id="loader"><CircularProgress /></div>;
+
+}
