@@ -16,9 +16,10 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { CssBaseline, CircularProgress } from '@material-ui/core';
 
 // Our Views
-import Logon from "./views/Logon";
 import LandingPage from "./views/LandingPage";
-
+import Logon from "./views/Logon";
+import Registry from "./views/Registry";
+import Dashboard from "./views/Dashboard";
 
 const theme = createMuiTheme();
 
@@ -49,8 +50,10 @@ export default function App() {
     <CssBaseline />
       <Router>
         <Switch>
-          <Route path={`${process.env.PUBLIC_URL}/login`} exact component={Logon} />
           <Route path={`${process.env.PUBLIC_URL}/`} exact component={LandingPage} />
+          <Route path={`${process.env.PUBLIC_URL}/login`} exact component={Logon} />
+          {/*<Route path={`${process.env.PUBLIC_URL}/signup`} exact component={Registry} />
+          <Route path={`${process.env.PUBLIC_URL}/dashboard`} exact component={Dashboard} />*/}
           <Route path="*">
             <NoMatch />
           </Route>
