@@ -1,16 +1,19 @@
 import React from "react";
 
-import {Container, CssBaseline, Typography} from '@material-ui/core';
+import { Container, CssBaseline } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Header from '../components/header';
 import Footer from '../components/footer';
+import LandingHero from '../components/landing/hero'
+import LandingInformation from '../components/landing/information'
+import LandingPersonalization from '../components/landing/personalization'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    minHeight: '100vh',
+    minHeight: '80vh',
   },
 }));
 
@@ -29,7 +32,9 @@ export default function LandingPage() {
       <Container component="main" maxWidth="lg">
         <Header title="" sections={sections} />
         <div className="App">
-
+          <LandingHero />
+          <LandingInformation />
+          <LandingPersonalization />
         </div>
       </Container>
       <Footer />

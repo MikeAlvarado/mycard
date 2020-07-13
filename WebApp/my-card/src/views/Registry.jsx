@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    minHeight: '100vh',
+    minHeight: '80vh',
   },
 }));
 
@@ -71,7 +71,7 @@ export default function Logon(props) {
               {logged === "false"? <BlockIcon/> : (logged === "true"? <CheckIcon/> : <LockOutlinedIcon/>) }
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              Sign Up
             </Typography>
             <form className={classes.form} onSubmit={e => e.preventDefault() && false}>
               <TextField

@@ -9,11 +9,12 @@ import {
 } from "react-router-dom";
 import firebase from './firebase/firebase'
 
-import './App.css';
 
 // UI
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { CssBaseline, CircularProgress } from '@material-ui/core';
+import 'fontsource-roboto';
+
 
 // Our Views
 import LandingPage from "./views/LandingPage";
@@ -21,7 +22,20 @@ import Logon from "./views/Logon";
 import Registry from "./views/Registry";
 import Dashboard from "./views/Dashboard";
 
-const theme = createMuiTheme();
+const theme = createMuiTheme({
+  overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        body: {
+          backgroundColor: '#ffffff',
+        },
+      },
+    },
+  },
+  typography: {
+    fontFamily: 'Roboto',
+  },
+});
 
 function NoMatch() {
   let location = useLocation();
@@ -52,8 +66,8 @@ export default function App() {
         <Switch>
           <Route path={`${process.env.PUBLIC_URL}/`} exact component={LandingPage} />
           <Route path={`${process.env.PUBLIC_URL}/login`} exact component={Logon} />
-          {/*<Route path={`${process.env.PUBLIC_URL}/signup`} exact component={Registry} />
-          <Route path={`${process.env.PUBLIC_URL}/dashboard`} exact component={Dashboard} />*/}
+          <Route path={`${process.env.PUBLIC_URL}/signup`} exact component={Registry} />
+          <Route path={`${process.env.PUBLIC_URL}/dashboard`} exact component={Dashboard} />
           <Route path="*">
             <NoMatch />
           </Route>
