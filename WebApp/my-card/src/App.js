@@ -11,7 +11,7 @@ import firebase from './firebase/firebase'
 
 
 // UI
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import { CssBaseline, CircularProgress } from '@material-ui/core';
 import 'fontsource-roboto';
 
@@ -22,7 +22,7 @@ import Logon from "./views/Logon";
 import Registry from "./views/Registry";
 import Dashboard from "./views/Dashboard";
 
-const theme = createMuiTheme({
+let theme = createMuiTheme({
   overrides: {
     MuiCssBaseline: {
       '@global': {
@@ -36,6 +36,8 @@ const theme = createMuiTheme({
     fontFamily: 'Roboto',
   },
 });
+
+theme = responsiveFontSizes(theme);
 
 function NoMatch() {
   let location = useLocation();

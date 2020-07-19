@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 
-import mycardlogo from '../mycardlogo.png';
+import mycardlogo from '../mycardlogoNoEdges.png';
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -36,7 +36,7 @@ export default function Header(props) {
     <React.Fragment>
       <Toolbar className={classes.toolbar}>
         <a href="/" rel="noopener noreferrer">
-          <img src={mycardlogo} className="App-logo" alt="logo" style={{height:"36px", width:"auto"}}/>
+          <img src={mycardlogo} className="App-logo" alt="logo" style={{margin: "8px", height:"24px", width:"auto"}}/>
         </a>
         <Typography
           component="h2"
@@ -66,8 +66,8 @@ export default function Header(props) {
           Log In
         </Button>
       </Toolbar>
-      <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
-      </Toolbar>
+      {/*<Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
+      </Toolbar>*/}
     </React.Fragment>
   );
 }

@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginTop: theme.spacing(4),
     marginBottom: theme.spacing(4),
-    marginRight: theme.spacing(4),
+    marginRight: theme.spacing(1),
   },
 }));
 
@@ -39,7 +39,7 @@ export default function LandingPersonalization() {
         className={classes.root}
       >
         <CssBaseline />
-        <Grid item xs={5}>
+        <Grid item xs={12} lg={5}>
         <Typography variant="h3" align="left">
           You are in control
         </Typography>
@@ -63,7 +63,7 @@ export default function LandingPersonalization() {
           </Typography>
         </div>
         </Grid>
-        <Grid style={{overflow:"hidden"}} item xs={7}>
+        <Grid style={{overflow:"hidden"}} item xs={12} lg={7}>
           <div>
             <Carousel />
           </div>

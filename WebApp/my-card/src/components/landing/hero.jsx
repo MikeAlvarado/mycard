@@ -1,9 +1,10 @@
 import React from 'react'
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, CssBaseline, Grid, Typography} from '@material-ui/core';
+import { Button, Box, CssBaseline, Grid, Typography} from '@material-ui/core';
 
 import HeroIllustration from '../../assets/hero_illustrations.jpg';
+import phoneMockup from '../../assets/phoneMock.png';
 import playstoreLogo from '../../assets/google-play-badge.png';
 import appstoreLogo from '../../assets/app-store-badge.svg';
 
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginTop: theme.spacing(4),
     marginBottom: theme.spacing(4),
-    marginRight: theme.spacing(4),
+    marginRight: theme.spacing(1),
   },
 }));
 
@@ -41,12 +42,12 @@ export default function LandingHero() {
         className={classes.root}
       >
         <CssBaseline />
-        <Grid item xs={6}>
-          <Typography variant="h3" align="left">
-            THIS IS
+        <Grid item xs={12} lg={6}>
+          <Typography variant="h4" align="left">
+            Welcome to
           </Typography>
-          <Typography variant="h2" align="left">
-            <u><strong>YOUR NEW <br/> BUSINESS CARD</strong></u>
+          <Typography variant="h3" align="left">
+            <u><strong>YOUR NEW <br/> PERSONAL CARD</strong></u>
           </Typography>
           <div>
             <Button className={classes.button} variant="contained"> Learn More </Button>
@@ -57,12 +58,15 @@ export default function LandingHero() {
             </Button>
           </div>
           <div style={{paddingTop: "36px", display: "flex", alignItems: "center"}}>
-            <img src={appstoreLogo} className="App-logo" alt="logo" style={{height:"56px", width:"auto"}}/>
-            <img src={playstoreLogo} className="App-logo" alt="logo" style={{height:"80px", width:"auto"}}/>
+            <img src={appstoreLogo} className="App-logo" alt="logo" style={{paddingTop: "8px", paddingBottom: "8px", paddingRight: "8px", height:"48px", width:"auto"}}/>
+            <img src={playstoreLogo} className="App-logo" alt="logo" style={{height:"48px", width:"auto"}}/>
           </div>
         </Grid>
-        <Grid item justify-self="flex-end" xs={4}>
+        <Grid item component={Box} justify-self="flex-end" lg={4} display={{ xs: "none", lg: "block" }}>
           <img src={HeroIllustration} className="App-logo" alt="logo" style= {{height: "400px", width: "auto"}} />
+        </Grid>
+        <Grid item component={Box} justify-self="flex-end" xs={12} display={{ xs: "block", sm: "none" }}>
+          <img src={phoneMockup} className="App-logo" alt="logo" style= {{height: "auto", width: "100%"}} />
         </Grid>
       </Grid>
     </div>
