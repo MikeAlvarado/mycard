@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Button, Box, CssBaseline, Grid, Typography} from '@material-ui/core';
 
 import HeroIllustration from '../../assets/hero_illustrations.jpg';
-import phoneMockup from '../../assets/phoneMock.png';
+import phoneMockup from '../../assets/phoneMock2full.png';
 import playstoreLogo from '../../assets/google-play-badge.png';
 import appstoreLogo from '../../assets/app-store-badge.svg';
 

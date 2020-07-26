@@ -64,7 +64,7 @@ export default function Carousel(){
   });
 
   return (
-    <div style={{display: "flex", alignItems: "center", justifyContent: "flex-end"}}>
+    <div style={{  position: "relative", display: "flex", alignItems: "center", justifyContent: "flex-end"}}>
       <Arrow
         direction='left'
         clickFunction={() => onArrowClick('left')}
@@ -78,6 +78,13 @@ export default function Carousel(){
         direction='right'
         clickFunction={() => onArrowClick('right')}
       />
+      {/*<div style={{  position: "absolute",
+        width: "50px",
+        top: "0",
+        bottom: "0",
+        background: "white",
+        opacity: "0.5"}}>
+      </div>*/}
     </div>
   );
 
