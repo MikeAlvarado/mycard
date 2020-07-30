@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '80vh',
   },
   backgroundImage: {
-    backgroundImage: 'url(https://i.pinimg.com/originals/61/5b/7c/615b7caf9b61ffe85852cde0ba67c9de.jpg)',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'bottom',
@@ -21,12 +20,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BaseComponent() {
+export default function BaseComponent(props) {
   const classes = useStyles();
 
   return(
     <React.Fragment>
-      <div className={classes.backgroundImage}>
+      <div className={classes.backgroundImage} style={{backgroundImage: "url('"+props.BackgroundImage+"')"}}>
         <Appbar />
       </div>
     </React.Fragment>

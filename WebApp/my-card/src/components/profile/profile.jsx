@@ -6,6 +6,7 @@ import { shadows } from '@material-ui/system';
 
 import NameCard from './cards/nameCard'
 import AboutCard from './cards/aboutCard'
+import SocialCard from './cards/socialCard'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,22 +39,36 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function BaseComponent() {
+export default function BaseComponent(props) {
   const classes = useStyles();
+
+  const share = props.User.Share;
+
+  function About(){
+    if (share['About Me'] != undefined || share['About Me'] != ""){
+      return <AboutCard Content={share['About Me']}/>
+    }
+    else{
+      return ""
+    }
+  }
 
   return (
     <div className={classes.root}>
-      <img src="https://www.suzuki.gr/moto-uplds/1647_ava-4.jpg"
+      <img src={props.User.Information['Profile']}
             className={classes.profileImage} />
         <Grid container direction="column"
                         justify="flex-start"
                         alignItems="center"
                         className={classes.cardsContainer}>
           <Grid item xs={12} className={classes.cardItem} >
-            <NameCard Name="Michelle Alvarado" Title="Software Engineer @moneypool"/>
+            <NameCard Name={props.User.Information['Name']} Title={props.User.Information['Title']}/>
           </Grid>
           <Grid item xs={12} className={classes.cardItem}>
-            <AboutCard Content="Passionate about UI, adept of UX, trying to make software more accessible and usable one line of code at a time."/>
+            <About />
+          </Grid>
+          <Grid item xs={12} className={classes.cardItem}>
+            <SocialCard Social={props.User.Share['Social']} />
           </Grid>
         </Grid>
     </div>

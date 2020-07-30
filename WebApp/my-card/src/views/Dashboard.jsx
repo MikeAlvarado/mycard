@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import firebase from '../firebase/firebase'
 
@@ -20,14 +20,24 @@ const useStyles = makeStyles((theme) => ({
 export default function Dashboard() {
   const classes = useStyles();
 
+  const [user, setUser] = useState("empty")
+
+  useEffect(() => {
+    firebase.getCurrentUser().then(setUser)
+  }, [])
+
+  if (user == "empty") {
+    return (<div></div>)
+  }
+
   return (
     <div className={classes.root}>
-      <Cover />
+      <Cover BackgroundImage={user.Information['Cover']}/>
       <CssBaseline />
       {/*<div>*/}
       <Container component="main" maxWidth="sm">
         <div className="App">
-          <Profile />
+          <Profile User={user} />
         </div>
       </Container>
       {/*</div>*/}

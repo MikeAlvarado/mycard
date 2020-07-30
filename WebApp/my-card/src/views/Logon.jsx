@@ -53,7 +53,7 @@ export default function Logon(props) {
 		try {
 			await firebase.login(email, password)
       setLogged("true");
-			props.history.replace('/Dashboard')
+      setTimeout(() => {  props.history.replace('/'); }, 1000);
 		} catch(error) {
       setLogged("false");
 			alert(error.message)

@@ -7,6 +7,8 @@ import {
   Redirect,
   useLocation
 } from "react-router-dom";
+
+import { AuthProvider } from './firebase/auth'
 import firebase from './firebase/firebase'
 
 
@@ -17,6 +19,8 @@ import 'fontsource-roboto';
 
 
 // Our Views
+import PrivateRoute from "./PrivateRoute"
+
 import LandingPage from "./views/LandingPage";
 import Logon from "./views/Logon";
 import Registry from "./views/Registry";
@@ -53,29 +57,23 @@ function NoMatch() {
 
 export default function App() {
 
-  const [firebaseInitialized, setFirebaseInitialized] = useState(false)
-
-	useEffect(() => {
-		firebase.isInitialized().then(val => {
-			setFirebaseInitialized(val)
-		})
-	})
-
-  return firebaseInitialized !== false ? (
-    <MuiThemeProvider theme={theme}>
-    <CssBaseline />
-      <Router>
-        <Switch>
-          <Route path={`${process.env.PUBLIC_URL}/`} exact component={LandingPage} />
-          <Route path={`${process.env.PUBLIC_URL}/login`} exact component={Logon} />
-          <Route path={`${process.env.PUBLIC_URL}/signup`} exact component={Registry} />
-          <Route path={`${process.env.PUBLIC_URL}/dashboard`} exact component={Dashboard} />
-          <Route path="*">
-            <NoMatch />
-          </Route>
-        </Switch>
-      </Router>
-    </MuiThemeProvider>
-  ): <div id="loader"><CircularProgress /></div>;
+  return (
+    <AuthProvider>
+      <MuiThemeProvider theme={theme}>
+      <CssBaseline />
+        <Router>
+          <Switch>
+            <PrivateRoute path={`${process.env.PUBLIC_URL}/`} exact component={Dashboard} />
+            <Route path={`${process.env.PUBLIC_URL}/login`} exact component={Logon} />
+            <Route path={`${process.env.PUBLIC_URL}/signup`} exact component={Registry} />
+            <Route path={`${process.env.PUBLIC_URL}/welcome`} exact component={LandingPage} />
+            <Route path="*">
+              <NoMatch />
+            </Route>
+          </Switch>
+        </Router>
+      </MuiThemeProvider>
+    </AuthProvider>
+  );
 
 }
