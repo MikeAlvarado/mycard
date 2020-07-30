@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardMedia, makeStyles } from '@material-ui/core';
 
 export default function CarouselSlide(props) {
-    const { backgroundImage, title } = props.content;
+    const { backgroundImage } = props.content;
 
     const useStyles = makeStyles(() => ({
         card: {

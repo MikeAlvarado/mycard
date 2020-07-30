@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { Card, CardContent, IconButton, Typography} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -50,13 +50,13 @@ export default function SocialCard(props) {
     YouTube: YouTubeIcon,
     Reddit: RedditIcon,
     LinkedIn: LinkedInIcon,
-    Reddit: PinterestIcon,
+    Pinterest: PinterestIcon,
     Other: LinkIcon
   };
 
   function SocialCards(){
     var socialMedia = props['Social'];
-    if (socialMedia != undefined){
+    if (socialMedia !== undefined){
       return(
         <Card className={classes.card}>
           <CardContent className={classes.cardContent}>
@@ -64,7 +64,7 @@ export default function SocialCard(props) {
             {Object.entries(socialMedia).map(([key, value]) => {
               const Icon = iconList[key] || 'Other';
               return(
-                <a href={`https://www.${key}.com/${value}`} target="_blank" className={classes.socialText}>
+                <a key={key} href={`https://www.${key}.com/${value}`} target="_blank" rel="noopener noreferrer" className={classes.socialText}>
                   <div className={classes.socialMedia}>
                     <IconButton aria-label={key}>
                       <Icon style={{ color: 'white' }} fontSize="large" />

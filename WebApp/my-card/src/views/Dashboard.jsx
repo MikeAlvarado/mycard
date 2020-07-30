@@ -26,7 +26,7 @@ export default function Dashboard() {
     firebase.getCurrentUser().then(setUser)
   }, [])
 
-  if (user == "empty") {
+  if (user === "empty") {
     return (<div></div>)
   }
 

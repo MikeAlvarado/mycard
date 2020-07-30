@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import { Box, Container, CssBaseline, Grid} from '@material-ui/core';
+import { Grid} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { shadows } from '@material-ui/system';
 
 import NameCard from './cards/nameCard'
 import AboutCard from './cards/aboutCard'
@@ -45,7 +44,7 @@ export default function BaseComponent(props) {
   const share = props.User.Share;
 
   function About(){
-    if (share['About Me'] != undefined || share['About Me'] != ""){
+    if (share['About Me'] !== undefined || share['About Me'] !== ""){
       return <AboutCard Content={share['About Me']}/>
     }
     else{
@@ -56,6 +55,7 @@ export default function BaseComponent(props) {
   return (
     <div className={classes.root}>
       <img src={props.User.Information['Profile']}
+            alt="ProfilePicture"
             className={classes.profileImage} />
         <Grid container direction="column"
                         justify="flex-start"

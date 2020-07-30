@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, Box, CssBaseline, Grid, Link, Typography} from '@material-ui/core';
+import { Button, Box, CssBaseline, Grid, Typography} from '@material-ui/core';
 
 import QrNfc from '../../assets/information_qrnfc.gif';
 
