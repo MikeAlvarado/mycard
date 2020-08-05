@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 
-import firebase from '../firebase/firebase'
+import firebase from '../../firebase/firebase'
 
 import { Container, CssBaseline } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Cover from '../components/profile/cover';
-import Profile from '../components/profile/profile';
+import Cover from '../../components/profile/cover';
+import Profile from '../../components/profile/profile';
 
 const useStyles = makeStyles((theme) => ({
   root: {

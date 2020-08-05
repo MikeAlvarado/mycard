@@ -24,7 +24,8 @@ import PrivateRoute from "./PrivateRoute"
 import LandingPage from "./views/LandingPage";
 import Logon from "./views/Logon";
 import Registry from "./views/Registry";
-import Dashboard from "./views/Dashboard";
+import Dashboard from "./views/User/Dashboard";
+import Settings from "./views/User/Settings";
 
 let theme = createMuiTheme({
   overrides: {
@@ -67,6 +68,7 @@ export default function App() {
             <Route path={`${process.env.PUBLIC_URL}/login`} exact component={Logon} />
             <Route path={`${process.env.PUBLIC_URL}/signup`} exact component={Registry} />
             <Route path={`${process.env.PUBLIC_URL}/welcome`} exact component={LandingPage} />
+            <Route path={`${process.env.PUBLIC_URL}/settings`} exact component={Settings} />
             <Route path="*">
               <NoMatch />
             </Route>

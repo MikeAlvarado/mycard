@@ -70,7 +70,7 @@ export default function SocialCard(props) {
                       <Icon style={{ color: 'white' }} fontSize="large" />
                    </IconButton>
                    <Typography variant="h5" className={classes.socialText} >
-                    {value}
+                    {key}
                    </Typography>
                   </div>
                 </a>
