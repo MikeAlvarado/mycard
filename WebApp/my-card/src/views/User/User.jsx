@@ -32,15 +32,15 @@ export default function User(props) {
   const fetchFirebase = useCallback(async () => {
     await firebase.getCurrentUser().then(setMyUser)
     await firebase.getUser(username).then(setUser)
-  }, []);
+  }, [username]);
 
   useEffect(() => {
     // console.log(username)
-    if (username != undefined) {  fetchFirebase() }
-  }, [fetchFirebase])
+    if (username !== undefined) {  fetchFirebase() }
+  }, [fetchFirebase, username])
 
   useEffect(() => {
-    if (user == undefined){
+    if (user === undefined){
       window.location.href = "/";
     }
 
@@ -50,7 +50,7 @@ export default function User(props) {
         window.location.replace("/");
       }
     }
-  }, [myUser])
+  }, [myUser, user, username])
 
 
 
