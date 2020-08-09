@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react'
 
 import firebase from '../../firebase/firebase'
 
-import { Button, Container, CssBaseline, Fab,FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@material-ui/core';
+import { Button, Container, CssBaseline, Fab,FormControl, Grid, IconButton, InputLabel, MenuItem, Select, TextField, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Appbar from '../../components/profile/appbar';
 
 import SaveIcon from '@material-ui/icons/Save';
-import FolderIcon from '@material-ui/icons/Folder';
-
+import ImageIcon from '@material-ui/icons/Image';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   sectionTitle:{
     padding: '12px',
+    fontWeight: 'bold',
   },
   textfield:{
     margin: theme.spacing(1),
@@ -50,15 +50,25 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
   },
   uploadPhotoIcon: {
-    // top: '100px',
+    top: '100px',
     zIndex: '2',
-    // backgroundColor: '#4A80F6',
-    // position: 'absolute',
-    // left: '100px',
+    backgroundColor: '#4A80F6',
+    position: 'absolute',
+    left: '100px',
+    color: 'white',
+  },
+  backdrop: {
+    backgroundColor: 'white',
+    width: '100%',
+    height: '100%',
+    position: 'relative',
+    borderRadius: '24px',
+    padding: '16px',
+    boxShadow: "rgba(0, 0, 0, 0.2) 0px 3px 3px -2px, rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px",
   }
 }));
 
-export default function Settings() {
+export default function Settings(props) {
   const classes = useStyles();
 
   const [user, setUser] = useState("empty")
@@ -83,14 +93,13 @@ export default function Settings() {
       setTitle(user.Information['Title']);
       setAbout(user.Share['AboutMe']);
     }
-  }, [user, url])
+  }, [user])
 
   if (user === "empty") {
     return (<div></div>)
   }
 
   const handleProfileImageChange = e => {
-    console.log(e)
     const file = e.target.files[0];
 
     if (file) {
@@ -147,7 +156,7 @@ export default function Settings() {
       'Information.Title' : title,
       'Share.AboutMe' : about
     })
-
+    setTimeout(() => {  props.history.replace('/'); }, 3000);
   }
 
   const socialArray = [
@@ -209,62 +218,60 @@ export default function Settings() {
   return (
     <div className={classes.root} style={{paddingBottom: '86px'}}>
     <Appbar Color="#4A80F6" Title='Edit Profile' Margin='12px'/>
-      <CssBaseline />
-      <Container component="main" maxWidth="sm">
-        <Grid
-          container
-          direction="column"
-          justify="center"
-          alignItems="flex-start"
-        >
-          <Grid item xs={12} style ={{alignSelf: 'center', position: 'relative'}}>
-            <img src={user.Information['Profile']}
-                  alt="ProfilePicture"
-                  className={classes.profileImage} />
-            <Button onClick={handleProfileImageChange} label="Choose file" className={classes.uploadPhotoIcon}>
-              <input type="file"  />
-            </Button>
 
-            <div style={{ height: "10px" }}>
+      <CssBaseline />
+        <Grid container direction="column" justify="center" alignItems="flex-start">
+          <Grid item xs={12} style ={{alignSelf: 'center', position: 'relative'}}>
+
+            <img src={url} alt="ProfilePicture" className={classes.profileImage} />
+
+            <IconButton variant="contained" component="label" className={classes.uploadPhotoIcon}>
+              <ImageIcon/>
+              <input type="file" onChange={handleProfileImageChange} style={{ display: "none" }} />
+            </IconButton>
+
+            <div style={{ height: "5px" }}>
               <p style={{color:"red"}}>{error}</p>
               {progress > 0 ? <progress value={progress} max="100" /> : ""}
             </div>
           </Grid>
 
-          <Grid item xs={12} style={{width: '95%'}}>
-            <Typography variant="h5" className={classes.sectionTitle} >
-              Personal Information
-            </Typography>
-            <div>
-              <TextField className={classes.textfield} fullWidth id="Name" label="Name" variant="outlined" value={name} onChange={e => setName(e.target.value)}/>
-            </div>
-            <div>
-              <TextField multiline rows={2} className={classes.textfield} fullWidth id="Title" label="Title" variant="outlined" value={title} onChange={e => setTitle(e.target.value)}/>
-            </div>
-          </Grid>
+          <div className={classes.backdrop}>
 
-          <Grid item xs={12} style={{width: '95%'}}>
-            <Typography variant="h5" className={classes.sectionTitle} >
-              AboutMe
-            </Typography>
-            <div>
-              <TextField multiline rows={4} className={classes.textfield} fullWidth id="AboutMe" label="AboutMe" variant="outlined" value={about} onChange={e => setAbout(e.target.value)}/>
-            </div>
-          </Grid>
+            <Grid item xs={12} style={{width: '95%'}}>
+              <Typography variant="h5" className={classes.sectionTitle} >
+                Personal Information
+              </Typography>
+              <div>
+                <TextField className={classes.textfield} fullWidth id="Name" label="Name" variant="outlined" value={name} onChange={e => setName(e.target.value)}/>
+              </div>
+              <div>
+                <TextField multiline rows={2} className={classes.textfield} fullWidth id="Title" label="Title" variant="outlined" value={title} onChange={e => setTitle(e.target.value)}/>
+              </div>
+            </Grid>
 
-          <Grid item xs={12} style={{width: '95%'}}>
-            <Typography variant="h5" className={classes.sectionTitle} >
-              Share Links
-            </Typography>
-            <SocialMedia />
-          </Grid>
+            <Grid item xs={12} style={{width: '95%'}}>
+              <Typography variant="h5" className={classes.sectionTitle} >
+                About Me
+              </Typography>
+              <div>
+                <TextField multiline rows={4} className={classes.textfield} fullWidth id="AboutMe" label="AboutMe" variant="outlined" value={about} onChange={e => setAbout(e.target.value)}/>
+              </div>
+            </Grid>
 
+            <Grid item xs={12} style={{width: '95%'}}>
+              <Typography variant="h5" className={classes.sectionTitle} >
+                Share Links
+              </Typography>
+              <SocialMedia />
+            </Grid>
+
+          </div>
         </Grid>
         <Fab onClick={handleSaveData} color="primary" className={classes.fab} variant="extended">
           <SaveIcon className={classes.extendedIcon} />
           Save
         </Fab>
-      </Container>
     </div>
   )
 }

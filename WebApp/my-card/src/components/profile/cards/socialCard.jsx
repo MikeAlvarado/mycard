@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#4A80F6",
     width: "100%",
     minHeight: '100px',
-    boxShadow: "rgba(74, 128, 246, 0.2) 0px 3px 3px -2px, rgba(74, 128, 246, 0.14) 0px 3px 4px 0px, rgba(74, 128, 246, 0.12) 0px 1px 8px 0px",
+    boxShadow: "rgba(74, 128, 246, 0.2) 0px 2px 4px -1px, rgba(74, 128, 246, 0.14) 0px 4px 5px 0px, rgba(74, 128, 246, 0.12) 0px 1px 10px 0px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
