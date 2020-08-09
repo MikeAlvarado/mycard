@@ -68,7 +68,7 @@ export default function Logon(props) {
         <Container component="login" maxWidth="xs">
           <div className={classes.paper}>
             <Avatar className={classes.avatar}>
-              {logged === "false"? <BlockIcon/> : (logged === "true"? <CheckIcon/> : <LockOutlinedIcon/>) }
+              {logged === "false "? <BlockIcon/> : (logged === "true"? <CheckIcon/> : <LockOutlinedIcon/>) }
             </Avatar>
             <Typography component="h1" variant="h5">
               Sign in

@@ -66,7 +66,7 @@ export default function App() {
         <Router>
           <Switch>
             <PrivateRoute path={`${process.env.PUBLIC_URL}/`} exact component={Profile} />
-            <Route path={`${process.env.PUBLIC_URL}/:username`} exact component={User} />
+            <Route path={`${process.env.PUBLIC_URL}/user/:username`} exact component={User} />
             <Route path={`${process.env.PUBLIC_URL}/login`} exact component={Logon} />
             <Route path={`${process.env.PUBLIC_URL}/signup`} exact component={Registry} />
             <Route path={`${process.env.PUBLIC_URL}/welcome`} exact component={LandingPage} />
