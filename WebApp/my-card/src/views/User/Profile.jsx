@@ -6,7 +6,7 @@ import { Container, CssBaseline } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Cover from '../../components/profile/cover';
-import Profile from '../../components/profile/profile';
+import ProfileHeader from '../../components/profile/profileHeader';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function Dashboard() {
+export default function User() {
   const classes = useStyles();
 
   const [user, setUser] = useState("empty")
@@ -32,12 +32,12 @@ export default function Dashboard() {
 
   return (
     <div className={classes.root}>
-      <Cover BackgroundImage={user.Information['Cover']}/>
+      <Cover ShowAppbar='true' BackgroundImage={user.Information['Cover']}/>
       <CssBaseline />
       {/*<div>*/}
       <Container component="main" maxWidth="sm">
         <div className="App">
-          <Profile User={user} />
+          <ProfileHeader User={user} />
         </div>
       </Container>
       {/*</div>*/}

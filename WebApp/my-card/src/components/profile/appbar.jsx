@@ -26,7 +26,7 @@ export default function AppBar(props) {
         <Typography variant="h6" className={classes.toolbarTitle}>
           {props.Title}
         </Typography>
-        <IconButton aria-label="settings" className={classes.margin}>
+        <IconButton href="/settings" aria-label="settings" className={classes.margin}>
          <SettingsIcon style={{ color: 'white' }} fontSize="large" />
        </IconButton>
       </Toolbar>

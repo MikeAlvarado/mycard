@@ -22,10 +22,21 @@ const useStyles = makeStyles((theme) => ({
 export default function BaseComponent(props) {
   const classes = useStyles();
 
+  const showappbar = props.ShowAppbar;
+
+  function ShowAppBar(){
+    if (showappbar == 'true'){
+      return <Appbar />
+    }
+    else{
+      return ""
+    }
+  }
+
   return(
     <React.Fragment>
       <div className={classes.backgroundImage} style={{backgroundImage: "url('"+props.BackgroundImage+"')"}}>
-        <Appbar />
+        <ShowAppBar />
       </div>
     </React.Fragment>
   )

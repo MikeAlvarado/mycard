@@ -24,7 +24,8 @@ import PrivateRoute from "./PrivateRoute"
 import LandingPage from "./views/LandingPage";
 import Logon from "./views/Logon";
 import Registry from "./views/Registry";
-import Dashboard from "./views/User/Dashboard";
+import Profile from "./views/User/Profile";
+import User from "./views/User/User";
 import Settings from "./views/User/Settings";
 
 let theme = createMuiTheme({
@@ -64,7 +65,8 @@ export default function App() {
       <CssBaseline />
         <Router>
           <Switch>
-            <PrivateRoute path={`${process.env.PUBLIC_URL}/`} exact component={Dashboard} />
+            <PrivateRoute path={`${process.env.PUBLIC_URL}/`} exact component={Profile} />
+            <Route path={`${process.env.PUBLIC_URL}/:username`} exact component={User} />
             <Route path={`${process.env.PUBLIC_URL}/login`} exact component={Logon} />
             <Route path={`${process.env.PUBLIC_URL}/signup`} exact component={Registry} />
             <Route path={`${process.env.PUBLIC_URL}/welcome`} exact component={LandingPage} />

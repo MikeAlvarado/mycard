@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function BaseComponent(props) {
+export default function ProfileHeader(props) {
   const classes = useStyles();
 
   const share = props.User.Share;

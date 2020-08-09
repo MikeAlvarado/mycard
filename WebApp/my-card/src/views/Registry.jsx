@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(3),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -44,16 +44,17 @@ const sections = [
 export default function Logon(props) {
   const classes = useStyles();
 
-  const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
-  const [logged, setLogged] = useState('')
+  const [name, setName] = useState('');
+  const [lname, setlName] = useState('');
+  const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+  const [logged, setLogged] = useState('');
 
-  async function login() {
-    setLogged("else");
+  async function signup() {
+    const fullName = name + " " + lname;
 		try {
-			await firebase.login(email, password)
-      setLogged("true");
-			//props.history.replace('/Dashboard')
+			await firebase.register(fullName, email, password)
+			props.history.replace('/settings')
 		} catch(error) {
       setLogged("false");
 			alert(error.message)
@@ -74,6 +75,35 @@ export default function Logon(props) {
               Sign Up
             </Typography>
             <form className={classes.form} onSubmit={e => e.preventDefault() && false}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="fname"
+                  name="firstName"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="lname"
+                  value={lname}
+                  onChange={e => setlName(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} >
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -83,10 +113,11 @@ export default function Logon(props) {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                autoFocus
                 value={email}
                 onChange={e => setEmail(e.target.value)}
               />
+              </Grid>
+              <Grid item xs={12} >
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -99,31 +130,22 @@ export default function Logon(props) {
                 autoComplete="current-password"
                 value={password} onChange={e => setPassword(e.target.value)}
               />
-              {/*
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              */}
+              </Grid>
+              </Grid>
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
-                onClick={login}
+                onClick={signup}
                 className={classes.submit}
               >
-                Sign In
+                Sign Up
               </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
+              <Grid container justify="flex-end">
                 <Grid item>
-                  <Link href="/signup" variant="body2">
-                    {"Don't have an account? Sign Up"}
+                  <Link href="/login" variant="body2">
+                    Already have an account? Sign in
                   </Link>
                 </Grid>
               </Grid>
