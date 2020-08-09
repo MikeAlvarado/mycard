@@ -25,11 +25,7 @@ export default function BaseComponent(props) {
   const showappbar = props.ShowAppbar;
 
   function ShowAppBar(){
-<<<<<<< HEAD
-    if (showappbar == 'true'){
-=======
     if (showappbar ===  'true'){
->>>>>>> ce26dd3... Share Usernames
       return <Appbar />
     }
     else{
