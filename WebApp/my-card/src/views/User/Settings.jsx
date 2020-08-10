@@ -95,10 +95,6 @@ export default function Settings(props) {
     }
   }, [user])
 
-  if (user === "empty") {
-    return (<div></div>)
-  }
-
   const handleProfileImageChange = e => {
     const file = e.target.files[0];
 
@@ -108,12 +104,17 @@ export default function Settings(props) {
       if (validImageTypes.includes(fileType)) {
         setError("");
         setProfileImage(file);
+        //handleProfileImageUpload();
       } else {
         console.log("error");
-        setError("error please upload a image file");
+        setError("Please upload an image.");
       }
     }
   };
+
+  useEffect(() => {
+    if (profileImage != null) { handleProfileImageUpload() }
+  }, [profileImage])
 
   const handleProfileImageUpload = () => {
     if (profileImage) {                                                            // add to profileImage folder in firebase
@@ -144,12 +145,12 @@ export default function Settings(props) {
         }
       );
     } else {
-      setError("Error please choose an image to upload");
+      setError("Please choose image file");
     }
   };
 
   const handleSaveData = () => {
-    handleProfileImageUpload();
+    // handleProfileImageUpload();
     firebase.db.collection('Users').doc(user.ID)
     .update({
       'Information.Name' : name,
@@ -215,6 +216,10 @@ export default function Settings(props) {
     }
   }
 
+  if (user === "empty") {
+    return (<div></div>)
+  }
+
   return (
     <div className={classes.root} style={{paddingBottom: '86px'}}>
     <Appbar Color="#4A80F6" Title='Edit Profile' Margin='12px'/>
@@ -230,7 +235,7 @@ export default function Settings(props) {
               <input type="file" onChange={handleProfileImageChange} style={{ display: "none" }} />
             </IconButton>
 
-            <div style={{ height: "5px" }}>
+            <div style={{ height: "10px", top: '-10px', position: 'relative' }}>
               <p style={{color:"red"}}>{error}</p>
               {progress > 0 ? <progress value={progress} max="100" /> : ""}
             </div>
