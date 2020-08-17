@@ -165,7 +165,7 @@ export default function Settings(props) {
       'Share.AboutMe' : about,
       'Share.Social' : socialMedia
     })
-    setTimeout(() => {  props.history.replace('/'); }, 3000);
+    setTimeout(() => {  props.history.replace('/'); }, 1000);
   }
 
   const socialArray = [

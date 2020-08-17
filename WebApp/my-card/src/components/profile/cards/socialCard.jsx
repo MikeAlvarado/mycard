@@ -56,7 +56,7 @@ export default function SocialCard(props) {
 
   function SocialCards(){
     var socialMedia = props['Social'];
-    if (socialMedia !== undefined){
+    if (socialMedia.length > 0){
       return(
         <Card className={classes.card}>
           <CardContent className={classes.cardContent}>
