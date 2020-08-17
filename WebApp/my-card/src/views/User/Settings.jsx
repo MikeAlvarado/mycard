@@ -9,6 +9,8 @@ import Appbar from '../../components/profile/appbar';
 
 import SaveIcon from '@material-ui/icons/Save';
 import ImageIcon from '@material-ui/icons/Image';
+import ClearIcon from '@material-ui/icons/Clear';
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -82,6 +84,9 @@ export default function Settings(props) {
   const [title, setTitle] = useState("");
   const [about, setAbout] = useState("");
 
+  const [socialMedia, setSocialMedia] = useState({});
+  const [unusedSocialMedia, setUnusedSocialMedia] = useState({});
+
   useEffect(() => {
     firebase.getCurrentUser().then(setUser)
   }, [])
@@ -92,6 +97,7 @@ export default function Settings(props) {
       setName(user.Information['Name']);
       setTitle(user.Information['Title']);
       setAbout(user.Share['AboutMe']);
+      setSocialMedia(user.Share['Social']);
     }
   }, [user])
 
@@ -117,7 +123,7 @@ export default function Settings(props) {
   }, [profileImage])
 
   const handleProfileImageUpload = () => {
-    if (profileImage) {                                                            // add to profileImage folder in firebase
+    if (profileImage) {                                                           // add to profileImage folder in firebase
       const uploadTask = firebase.storage.ref(`Users/${user.ID}/profile/${profileImage.name}`).put(profileImage);
       uploadTask.on(                                                              // Listen for state changes, errors, and completion of the upload.
         "state_changed",
@@ -151,11 +157,13 @@ export default function Settings(props) {
 
   const handleSaveData = () => {
     // handleProfileImageUpload();
+    document.getElementById("saveButton").innerHTML = "Saving..."
     firebase.db.collection('Users').doc(user.ID)
     .update({
       'Information.Name' : name,
       'Information.Title' : title,
-      'Share.AboutMe' : about
+      'Share.AboutMe' : about,
+      'Share.Social' : socialMedia
     })
     setTimeout(() => {  props.history.replace('/'); }, 3000);
   }
@@ -171,38 +179,58 @@ export default function Settings(props) {
     'Other'
   ];
 
-  function SocialMedia(){
-    var socialMedia = user.Share['Social'];
-    if (socialMedia !== undefined){
-      return(
-        <div>
+  const updateField = e => {
+    setSocialMedia({
+      ...socialMedia,
+      [e.target.name]: e.target.value
+    });
+  };
 
-            {Object.entries(socialMedia).map(([key, value]) => {
+  function deleteSocialMedia(socialName, e) {
+    var newMap = {};
+    Object.keys(socialMedia).forEach((item, value) => {
+      if (socialName !== item) {
+        newMap[item] = socialMedia[item];
+      }
+    });
+
+    setSocialMedia(newMap);
+  }
+
+  {/* function SocialTile(props) {
+    var socialKey = props.socialKey;
+    var value = props.value
+
+    return(
+    <div key={socialKey} id={socialKey} style={{display: 'flex'}}>
+
+      <FormControl variant="outlined" className={classes.formControl}>
+         <InputLabel id={key}>Type</InputLabel>
+         <Select id="demo-simple-select-outlined" label="Type"
+           value={key} >
+           {socialArray.map((social, index) =>
+             <MenuItem key={index} value={social} >{social}</MenuItem>
+           )}
+         </Select>
+      </FormControl>
+
+      <TextField className={classes.textfield} name={socialKey} fullWidth id={socialKey} key={socialKey} label="Your Account" variant="outlined"
+      value={value} onChange={updateField}/>
+
+    </div>
+  )
+}*/}
+
+  {/*function SocialMedias(){
+    var socials = socialMedia;
+    if (socials !== undefined){
+      return(
+        <div id="socialMedias">
+
+            {Object.entries(socials).map(([key, value]) => {
               return(
 
-                <div style={{display: 'flex'}}>
-
-                  <FormControl variant="outlined" className={classes.formControl}>
-                     <InputLabel id={key}>Type</InputLabel>
-                     <Select
-                       labelId="demo-simple-select-outlined-label"
-                       id="demo-simple-select-outlined"
-                       label="Type"
-                       value={key}
-                     >
-                     {socialArray.map((social, index) =>
-                       <MenuItem key={index} value={social} >{social}</MenuItem>
-                     )}
-                     </Select>
-                  </FormControl>
-
-
-
-
-                   <TextField className={classes.textfield} fullWidth id={key} label="Your Account" variant="outlined" value={value} />
-
-
-                </div>
+                <SocialTile key={key} socialKey={key} value={value}/>
 
               )
             })
@@ -214,7 +242,7 @@ export default function Settings(props) {
     else {
       return("")
     }
-  }
+  }*/}
 
   if (user === "empty") {
     return (<div></div>)
@@ -243,6 +271,7 @@ export default function Settings(props) {
 
           <div className={classes.backdrop}>
 
+            {/* Personal Information */}
             <Grid item xs={12} style={{width: '95%'}}>
               <Typography variant="h5" className={classes.sectionTitle} >
                 Personal Information
@@ -255,6 +284,7 @@ export default function Settings(props) {
               </div>
             </Grid>
 
+            {/* About Me */}
             <Grid item xs={12} style={{width: '95%'}}>
               <Typography variant="h5" className={classes.sectionTitle} >
                 About Me
@@ -268,12 +298,64 @@ export default function Settings(props) {
               <Typography variant="h5" className={classes.sectionTitle} >
                 Share Links
               </Typography>
-              <SocialMedia />
+
+
+              <div id="socialMedias">
+
+                  {Object.entries(socialMedia).map(([socialKey, value]) => {
+                    return(
+
+                      <div key={socialKey} id={socialKey} style={{display: 'flex'}}>
+
+                        <FormControl variant="outlined" className={classes.formControl} disabled>
+                          <InputLabel id={socialKey}>Type</InputLabel>
+                          <Select label="Type"
+                            value={socialKey} name={value} >
+                            <MenuItem key={socialKey} value={socialKey} >{socialKey}</MenuItem>
+                          </Select>
+                        </FormControl>
+
+                        <TextField className={classes.textfield} name={socialKey} fullWidth id={socialKey} key={[socialKey + "tf"]} label="Your Account" variant="outlined"
+                        value={value} onChange={updateField}/>
+
+                        <IconButton aria-label="delete" name={[socialKey + "delete"]} className={classes.margin} style={{padding: '0'}}  onClick={(e) => deleteSocialMedia(socialKey, e)}>
+                          <ClearIcon fontSize="small" />
+                        </IconButton>
+
+                      </div>
+
+                    )
+                  })}
+
+              </div>
+
+              <div key="newSocialKey" id="newSocialKey" style={{display: 'none'}}>
+
+                <FormControl variant="outlined" className={classes.formControl} >
+                  <InputLabel id="newSocialKey"> Type </InputLabel>
+                  <Select label="Type"
+                    value="" name="" >
+                    {
+                      socialArray.map((social, index) =>
+                      <MenuItem key={index} value={social} >{social}</MenuItem>)
+                    }
+                  </Select>
+                </FormControl>
+
+                <TextField className={classes.textfield} name="newSocialKey" fullWidth id="newSocialKey" key="newSocialKey" label="Your Account" variant="outlined"
+                value="" onChange={updateField}/>
+
+                <IconButton aria-label="delete" name="newSocialKeySave" className={classes.margin} style={{padding: '0'}} >
+                  <ClearIcon fontSize="small" />
+                </IconButton>
+
+              </div>
+
             </Grid>
 
           </div>
         </Grid>
-        <Fab onClick={handleSaveData} color="primary" className={classes.fab} variant="extended">
+        <Fab id='saveButton' onClick={handleSaveData} color="primary" className={classes.fab} variant="extended">
           <SaveIcon className={classes.extendedIcon} />
           Save
         </Fab>
