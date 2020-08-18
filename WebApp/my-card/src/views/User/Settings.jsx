@@ -85,7 +85,8 @@ export default function Settings(props) {
   const [about, setAbout] = useState("");
 
   const [socialMedia, setSocialMedia] = useState({});
-  const [unusedSocialMedia, setUnusedSocialMedia] = useState({});
+  const [unusedSocialMedia, setUnusedSocialMedia] = useState([]);
+  const [newSocialMedia, setNewSocialmedia] = useState();
 
   useEffect(() => {
     firebase.getCurrentUser().then(setUser)
@@ -179,12 +180,34 @@ export default function Settings(props) {
     'Other'
   ];
 
+  useEffect(() => {
+    if (socialMedia !== {}) {
+      var newMap = [];
+      var iJ = 0;
+      for (var iI = 0; iI < 8; iI++){
+        if (!socialMedia.hasOwnProperty(socialArray[iI])) {newMap[iJ++] = socialArray[iI]}
+      }
+
+      console.log(newMap);
+
+      setUnusedSocialMedia(newMap);
+
+    }
+  }, [socialMedia])
+
   const updateField = e => {
     setSocialMedia({
       ...socialMedia,
       [e.target.name]: e.target.value
     });
   };
+
+  const newSocialField = e => {
+    setSocialMedia({
+      ...socialMedia,
+      [e.target.value]: ""
+    })
+  }
 
   function deleteSocialMedia(socialName, e) {
     var newMap = {};
@@ -329,21 +352,21 @@ export default function Settings(props) {
 
               </div>
 
-              <div key="newSocialKey" id="newSocialKey" style={{display: 'none'}}>
+              <div key="newSocialKey" id="newSocialKey" style={{display: 'flex'}}>
 
                 <FormControl variant="outlined" className={classes.formControl} >
                   <InputLabel id="newSocialKey"> Type </InputLabel>
                   <Select label="Type"
-                    value="" name="" >
+                    value="" name="" onChange={newSocialField} >
                     {
-                      socialArray.map((social, index) =>
+                      unusedSocialMedia.map((social, index) =>
                       <MenuItem key={index} value={social} >{social}</MenuItem>)
                     }
                   </Select>
                 </FormControl>
 
-                <TextField className={classes.textfield} name="newSocialKey" fullWidth id="newSocialKey" key="newSocialKey" label="Your Account" variant="outlined"
-                value="" onChange={updateField}/>
+                <TextField className={classes.textfield} name="newSocialKey" fullWidth id="newSocialKey" key="newSocialKey" label="Choose type first" variant="outlined" disabled
+                value="" />
 
                 <IconButton aria-label="delete" name="newSocialKeySave" className={classes.margin} style={{padding: '0'}} >
                   <ClearIcon fontSize="small" />
