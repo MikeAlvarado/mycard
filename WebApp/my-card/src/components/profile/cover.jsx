@@ -26,7 +26,7 @@ export default function BaseComponent(props) {
 
   function ShowAppBar(){
     if (showappbar ===  'true'){
-      return <Appbar />
+      return <Appbar Transform="translate(0, -200px)" />
     }
     else{
       return ""
@@ -36,8 +36,8 @@ export default function BaseComponent(props) {
   return(
     <React.Fragment>
       <div className={classes.backgroundImage} style={{backgroundImage: "url('"+props.BackgroundImage+"')"}}>
-        <ShowAppBar />
       </div>
+      <ShowAppBar />
     </React.Fragment>
   )
 }

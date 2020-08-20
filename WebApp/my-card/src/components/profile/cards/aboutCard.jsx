@@ -32,7 +32,7 @@ export default function AboutCard(props) {
     <Card className={classes.card}>
       <CardContent className={classes.cardContent}>
         <Typography variant="h5" className={classes.cardTitle}>
-          <b>AboutMe</b>
+          <b>About Me</b>
         </Typography>
         <Typography variant="body2" className={classes.cardText}>
           {props.Content}

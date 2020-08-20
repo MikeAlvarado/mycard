@@ -75,14 +75,14 @@ export default function Settings(props) {
 
   const [user, setUser] = useState("empty")
 
+  const [name, setName] = useState("");
+  const [title, setTitle] = useState("");
+  const [about, setAbout] = useState("");
+
   const [profileImage, setProfileImage] = useState(null);
   const [url, setUrl] = useState("");
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState("");
-
-  const [name, setName] = useState("");
-  const [title, setTitle] = useState("");
-  const [about, setAbout] = useState("");
 
   const [socialMedia, setSocialMedia] = useState({});
   const [unusedSocialMedia, setUnusedSocialMedia] = useState([]);
@@ -220,53 +220,6 @@ export default function Settings(props) {
     setSocialMedia(newMap);
   }
 
-  {/* function SocialTile(props) {
-    var socialKey = props.socialKey;
-    var value = props.value
-
-    return(
-    <div key={socialKey} id={socialKey} style={{display: 'flex'}}>
-
-      <FormControl variant="outlined" className={classes.formControl}>
-         <InputLabel id={key}>Type</InputLabel>
-         <Select id="demo-simple-select-outlined" label="Type"
-           value={key} >
-           {socialArray.map((social, index) =>
-             <MenuItem key={index} value={social} >{social}</MenuItem>
-           )}
-         </Select>
-      </FormControl>
-
-      <TextField className={classes.textfield} name={socialKey} fullWidth id={socialKey} key={socialKey} label="Your Account" variant="outlined"
-      value={value} onChange={updateField}/>
-
-    </div>
-  )
-}*/}
-
-  {/*function SocialMedias(){
-    var socials = socialMedia;
-    if (socials !== undefined){
-      return(
-        <div id="socialMedias">
-
-            {Object.entries(socials).map(([key, value]) => {
-              return(
-
-                <SocialTile key={key} socialKey={key} value={value}/>
-
-              )
-            })
-            }
-
-        </div>
-      )
-    }
-    else {
-      return("")
-    }
-  }*/}
-
   if (user === "empty") {
     return (<div></div>)
   }
@@ -369,7 +322,7 @@ export default function Settings(props) {
                 value="" />
 
                 <IconButton aria-label="delete" name="newSocialKeySave" className={classes.margin} style={{padding: '0'}} >
-                  <ClearIcon fontSize="small" />
+                  <AddIcon fontSize="small" />
                 </IconButton>
 
               </div>
