@@ -47,6 +47,7 @@ export default function AppBar(props) {
   function Logout(){
     firebase.logout();
     closeMenu()
+    setTimeout(() => {  props.history.replace('/'); }, 1000);
   }
 
   return (

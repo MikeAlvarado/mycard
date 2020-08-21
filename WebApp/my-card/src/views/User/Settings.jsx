@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import firebase from '../../firebase/firebase'
 
-import { Button, Container, CssBaseline, Fab,FormControl, Grid, IconButton, InputLabel, MenuItem, Select, TextField, Typography } from '@material-ui/core';
+import { Button, Container, CssBaseline, Fab,FormControl, Grid, IconButton, InputLabel, Menu, MenuItem, Select, TextField, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Appbar from '../../components/profile/appbar';
@@ -80,6 +80,7 @@ export default function Settings(props) {
   const [about, setAbout] = useState("");
 
   const [profileImage, setProfileImage] = useState(null);
+  const [coverImage, setCoverImage] = useState(null);
   const [url, setUrl] = useState("");
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState("");
@@ -87,6 +88,8 @@ export default function Settings(props) {
   const [socialMedia, setSocialMedia] = useState({});
   const [unusedSocialMedia, setUnusedSocialMedia] = useState([]);
   const [newSocialMedia, setNewSocialmedia] = useState();
+
+  const [imageMenu, setImageMenu] = useState("");
 
   useEffect(() => {
     firebase.getCurrentUser().then(setUser)
@@ -117,11 +120,34 @@ export default function Settings(props) {
         setError("Please upload an image.");
       }
     }
+    closeMenu()
+  };
+
+  const handleCoverImageChange = e => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const fileType = file["type"];
+      const validImageTypes = ["image/gif", "image/jpeg", "image/png"];
+      if (validImageTypes.includes(fileType)) {
+        setError("");
+        setCoverImage(file);
+        //handleProfileImageUpload();
+      } else {
+        console.log("error");
+        setError("Please upload an image.");
+      }
+    }
+    closeMenu()
   };
 
   useEffect(() => {
     if (profileImage != null) { handleProfileImageUpload() }
   }, [profileImage])
+
+  useEffect(() => {
+    if (coverImage != null) { handleCoverImageUpload() }
+  }, [coverImage])
 
   const handleProfileImageUpload = () => {
     if (profileImage) {                                                           // add to profileImage folder in firebase
@@ -147,6 +173,37 @@ export default function Settings(props) {
               console.log(url);
               setUrl(url);
               firebase.db.collection('Users').doc(user.ID).update({'Information.Profile' : url})
+              setProgress(0);
+            });
+        }
+      );
+    } else {
+      setError("Please choose image file");
+    }
+  };
+
+  const handleCoverImageUpload = () => {
+    if (coverImage) {                                                           // add to profileImage folder in firebase
+      const uploadTask = firebase.storage.ref(`Users/${user.ID}/cover/${coverImage.name}`).put(coverImage);
+      uploadTask.on(                                                              // Listen for state changes, errors, and completion of the upload.
+        "state_changed",
+        snapshot => {                                                             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          setProgress(progress);
+        },
+        error => {                                                                // error function ....
+          console.log(error);
+          setError(error);
+        },
+        () => {                                                                   // complete function ....
+          firebase.storage
+            .ref(`Users/${user.ID}/cover/`)
+            .child(coverImage.name)                                             // Upload the file and metadata
+            .getDownloadURL()                                                     // get download url
+            .then(url => {
+              firebase.db.collection('Users').doc(user.ID).update({'Information.Cover' : url})
               setProgress(0);
             });
         }
@@ -188,8 +245,6 @@ export default function Settings(props) {
         if (!socialMedia.hasOwnProperty(socialArray[iI])) {newMap[iJ++] = socialArray[iI]}
       }
 
-      console.log(newMap);
-
       setUnusedSocialMedia(newMap);
 
     }
@@ -220,6 +275,14 @@ export default function Settings(props) {
     setSocialMedia(newMap);
   }
 
+  const openMenu = (event) => {
+    setImageMenu(event.currentTarget)
+  }
+
+  const closeMenu = () => {
+    setImageMenu(null)
+  }
+
   if (user === "empty") {
     return (<div></div>)
   }
@@ -234,10 +297,34 @@ export default function Settings(props) {
 
             <img src={url} alt="ProfilePicture" className={classes.profileImage} />
 
-            <IconButton variant="contained" component="label" className={classes.uploadPhotoIcon}>
+            <IconButton aria-controls="simple-menu" aria-haspopup="true" onClick={openMenu} variant="contained" component="label" className={classes.uploadPhotoIcon}>
               <ImageIcon/>
-              <input type="file" onChange={handleProfileImageChange} style={{ display: "none" }} />
             </IconButton>
+            <Menu
+               id="simple-menu"
+               anchorEl={imageMenu}
+               keepMounted
+               open={Boolean(imageMenu)}
+               onClose={closeMenu}
+            >
+            <MenuItem>
+                <Button component="label" disabled>
+                  Edit Photo
+                </Button>
+              </MenuItem>
+              <MenuItem>
+                <Button component="label" >
+                  Profile
+                  <input type="file" onChange={handleProfileImageChange} style={{ display: "none" }} />
+                </Button>
+              </MenuItem>
+              <MenuItem>
+              <Button component="label" >
+                  Cover
+                  <input type="file" onChange={handleCoverImageChange} style={{ display: "none" }} />
+                </Button>
+              </MenuItem>
+            </Menu>
 
             <div style={{ height: "10px", top: '-10px', position: 'relative' }}>
               <p style={{color:"red"}}>{error}</p>
@@ -270,11 +357,11 @@ export default function Settings(props) {
               </div>
             </Grid>
 
+            {/* Social Media */}
             <Grid item xs={12} style={{width: '95%'}}>
               <Typography variant="h5" className={classes.sectionTitle} >
                 Share Links
               </Typography>
-
 
               <div id="socialMedias">
 
@@ -293,7 +380,6 @@ export default function Settings(props) {
 
                         <TextField className={classes.textfield} name={socialKey} fullWidth id={socialKey} key={[socialKey + "tf"]} label="Your Account" variant="outlined"
                         value={value} onChange={updateField}/>
-
                         <IconButton aria-label="delete" name={[socialKey + "delete"]} className={classes.margin} style={{padding: '0'}}  onClick={(e) => deleteSocialMedia(socialKey, e)}>
                           <ClearIcon fontSize="small" />
                         </IconButton>
@@ -320,9 +406,8 @@ export default function Settings(props) {
 
                 <TextField className={classes.textfield} name="newSocialKey" fullWidth id="newSocialKey" key="newSocialKey" label="Choose type first" variant="outlined" disabled
                 value="" />
-
                 <IconButton aria-label="delete" name="newSocialKeySave" className={classes.margin} style={{padding: '0'}} >
-                  <AddIcon fontSize="small" />
+                  {/* <AddIcon fontSize="small" /> */}
                 </IconButton>
 
               </div>
