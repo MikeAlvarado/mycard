@@ -60,6 +60,10 @@ export default function Logon(props) {
 		}
 	}
 
+  function resetPassword(){
+    firebase.resetPassword(email);
+  }
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -117,7 +121,7 @@ export default function Logon(props) {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <Link onClick={resetPassword} variant="body2">
                     Forgot password?
                   </Link>
                 </Grid>
