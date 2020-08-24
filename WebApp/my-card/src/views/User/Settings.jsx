@@ -94,7 +94,10 @@ export default function Settings(props) {
   }, [])
 
   useEffect(() => {
-    if (user !== "empty") {
+    if (user === undefined){
+      window.location.replace("/");
+    }
+    else if (user !== "empty") {
       setUrl(user.Information['Profile']);
       setName(user.Information['Name']);
       setTitle(user.Information['Title']);
@@ -252,7 +255,7 @@ export default function Settings(props) {
       setUnusedSocialMedia(newMap);
 
     }
-  }, [socialMedia, socialArray])
+  }, [socialMedia])
 
   const updateField = e => {
     setSocialMedia({
@@ -289,6 +292,39 @@ export default function Settings(props) {
 
   if (user === "empty") {
     return (<div></div>)
+  }
+
+  function NewSocialMedia(){
+    if (unusedSocialMedia.length > 0) {
+      return(
+        <div key="newSocialKey" id="newSocialKey" style={{display: 'flex'}}>
+
+        <FormControl variant="outlined" className={classes.formControl} >
+          <InputLabel id="newSocialKey"> Type </InputLabel>
+          <Select label="Type"
+            value="" name="" onChange={newSocialField} >
+            {
+              unusedSocialMedia.map((social, index) =>
+              <MenuItem key={index} value={social} >{social}</MenuItem>)
+            }
+          </Select>
+        </FormControl>
+
+        <TextField className={classes.textfield} name="newSocialKey" fullWidth id="newSocialKey" key="newSocialKey" label="Choose type first" variant="outlined" disabled
+        value="" />
+        <IconButton aria-label="delete" name="newSocialKeySave" className={classes.margin} style={{padding: '0'}} >
+          {/* <AddIcon fontSize="small" /> */}
+        </IconButton>
+
+        </div>
+
+
+      )
+    }
+    else {
+      return ("")
+    }
+
   }
 
   return (
@@ -395,26 +431,9 @@ export default function Settings(props) {
 
               </div>
 
-              <div key="newSocialKey" id="newSocialKey" style={{display: 'flex'}}>
 
-                <FormControl variant="outlined" className={classes.formControl} >
-                  <InputLabel id="newSocialKey"> Type </InputLabel>
-                  <Select label="Type"
-                    value="" name="" onChange={newSocialField} >
-                    {
-                      unusedSocialMedia.map((social, index) =>
-                      <MenuItem key={index} value={social} >{social}</MenuItem>)
-                    }
-                  </Select>
-                </FormControl>
+                <NewSocialMedia />
 
-                <TextField className={classes.textfield} name="newSocialKey" fullWidth id="newSocialKey" key="newSocialKey" label="Choose type first" variant="outlined" disabled
-                value="" />
-                <IconButton aria-label="delete" name="newSocialKeySave" className={classes.margin} style={{padding: '0'}} >
-                  {/* <AddIcon fontSize="small" /> */}
-                </IconButton>
-
-              </div>
 
             </Grid>
 
