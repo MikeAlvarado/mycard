@@ -48,12 +48,14 @@ export default function Logon(props) {
   const [lname, setlName] = useState('');
   const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+  const [cardNumber, setCardNumber] = useState('');
+
   const [logged, setLogged] = useState('');
 
   async function signup() {
     const fullName = name + " " + lname;
 		try {
-			await firebase.register(fullName, email, password)
+			await firebase.register(fullName, email, password, cardNumber)
 			props.history.replace('/settings')
 		} catch(error) {
       setLogged("false");
@@ -76,9 +78,8 @@ export default function Logon(props) {
             </Typography>
             <form className={classes.form} onSubmit={e => e.preventDefault() && false}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={6} sm={6}>
                 <TextField
-                  autoComplete="fname"
                   name="firstName"
                   variant="outlined"
                   required
@@ -86,11 +87,12 @@ export default function Logon(props) {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  autoComplete="given-name"
                   value={name}
                   onChange={e => setName(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={6} sm={6}>
                 <TextField
                   variant="outlined"
                   required
@@ -98,7 +100,7 @@ export default function Logon(props) {
                   id="lastName"
                   label="Last Name"
                   name="lastName"
-                  autoComplete="lname"
+                  autoComplete="family-name"
                   value={lname}
                   onChange={e => setlName(e.target.value)}
                 />
@@ -115,6 +117,19 @@ export default function Logon(props) {
                 autoComplete="email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
+              />
+              </Grid>
+              <Grid item xs={12} >
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label=" Card Number"
+                name="cardNumber"
+                value={cardNumber}
+                onChange={e => setCardNumber(e.target.value)}
               />
               </Grid>
               <Grid item xs={12} >

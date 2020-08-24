@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import firebase from '../../firebase/firebase'
 
-import { Button, Container, CssBaseline, Fab,FormControl, Grid, IconButton, InputLabel, Menu, MenuItem, Select, TextField, Typography } from '@material-ui/core';
+import { Button, CssBaseline, Fab,FormControl, Grid, IconButton, InputLabel, Menu, MenuItem, Select, TextField, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Appbar from '../../components/profile/appbar';
@@ -10,7 +10,6 @@ import Appbar from '../../components/profile/appbar';
 import SaveIcon from '@material-ui/icons/Save';
 import ImageIcon from '@material-ui/icons/Image';
 import ClearIcon from '@material-ui/icons/Clear';
-import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -87,7 +86,6 @@ export default function Settings(props) {
 
   const [socialMedia, setSocialMedia] = useState({});
   const [unusedSocialMedia, setUnusedSocialMedia] = useState([]);
-  const [newSocialMedia, setNewSocialmedia] = useState();
 
   const [imageMenu, setImageMenu] = useState("");
 
@@ -234,21 +232,27 @@ export default function Settings(props) {
     'Reddit',
     'LinkedIn',
     'Pinterest',
-    'Other'
+    'Website',
+    'Mail',
+    'WhatsApp',
+    'Twitch',
+    'SoundCloud',
+    'Snapchat',
+    'TikTok',
   ];
 
   useEffect(() => {
     if (socialMedia !== {}) {
       var newMap = [];
       var iJ = 0;
-      for (var iI = 0; iI < 8; iI++){
+      for (var iI = 0; iI < 14; iI++){
         if (!socialMedia.hasOwnProperty(socialArray[iI])) {newMap[iJ++] = socialArray[iI]}
       }
 
       setUnusedSocialMedia(newMap);
 
     }
-  }, [socialMedia])
+  }, [socialMedia, socialArray])
 
   const updateField = e => {
     setSocialMedia({
