@@ -30,8 +30,8 @@ export default function User(props) {
   const [myUser, setMyUser] = useState("empty")
 
   const fetchFirebase = useCallback(async () => {
-    await firebase.getCurrentUser().then(setMyUser)
     await firebase.getUser(username).then(setUser)
+    await firebase.getCurrentUser().then(setMyUser)
   }, [username]);
 
   useEffect(() => {
@@ -44,8 +44,8 @@ export default function User(props) {
       window.location.href = "/";
     }
 
-    if (myUser !== 'empty'){
-      // console.log(myUser.Username)
+    if (myUser !== 'empty' && myUser !== undefined){
+      //console.log(myUser.Username)
       if (username === myUser.Username){
         window.location.replace("/");
       }
