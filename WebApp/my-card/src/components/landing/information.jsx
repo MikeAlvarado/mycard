@@ -50,7 +50,10 @@ export default function LandingInformation() {
             <br/> or scan the QR Code with your phone camera.
           </Typography>
           <div>
-            <Button className={classes.button} variant="contained">  Compatible phones </Button>
+            <Button className={classes.button} variant="contained"
+            href="/compatibility" rel="noopener noreferrer">
+              Compatible phones
+            </Button>
             <Button className={classes.button} variant="contained" color="primary"
               href="/signup" rel="noopener noreferrer"
             >

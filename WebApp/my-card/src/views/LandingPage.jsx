@@ -18,8 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const sections = [
-  { title: 'Products', url: '#' },
-  { title: 'About', url: '#' },
+  { title: 'Compatible Phones', url: '/compatibility' },
 ];
 
 

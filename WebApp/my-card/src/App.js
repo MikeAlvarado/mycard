@@ -27,6 +27,7 @@ import Registry from "./views/Registry";
 import Profile from "./views/User/Profile";
 import User from "./views/User/User";
 import Settings from "./views/User/Settings";
+import CompatiblePhones from "./views/Compatibles";
 
 let theme = createMuiTheme({
   overrides: {
@@ -71,6 +72,7 @@ export default function App() {
             <Route path={`${process.env.PUBLIC_URL}/signup`} exact component={Registry} />
             <Route path={`${process.env.PUBLIC_URL}/welcome`} exact component={LandingPage} />
             <Route path={`${process.env.PUBLIC_URL}/settings`} exact component={Settings} />
+            <Route path={`${process.env.PUBLIC_URL}/compatibility`} exact component={CompatiblePhones} />
             <Route path="*">
               <NoMatch />
             </Route>
