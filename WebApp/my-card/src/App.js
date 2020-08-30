@@ -26,6 +26,7 @@ import Logon from "./views/Logon";
 import Registry from "./views/Registry";
 import Profile from "./views/User/Profile";
 import User from "./views/User/User";
+import Card from "./views/User/Card";
 import Settings from "./views/User/Settings";
 import CompatiblePhones from "./views/Compatibles";
 
@@ -68,6 +69,7 @@ export default function App() {
           <Switch>
             <PrivateRoute path={`${process.env.PUBLIC_URL}/`} exact component={Profile} />
             <Route path={`${process.env.PUBLIC_URL}/user/:username`} exact component={User} />
+            <Route path={`${process.env.PUBLIC_URL}/card/:cardnumber`} exact component={Card} />
             <Route path={`${process.env.PUBLIC_URL}/login`} exact component={Logon} />
             <Route path={`${process.env.PUBLIC_URL}/signup`} exact component={Registry} />
             <Route path={`${process.env.PUBLIC_URL}/welcome`} exact component={LandingPage} />
