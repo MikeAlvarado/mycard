@@ -31,7 +31,7 @@ export default function Footer() {
   return (
       <footer className={classes.footer}>
         <Container maxWidth="sm">
-        <Typography variant="body2" color="textSecondary" align="center"> Current version Beta 0.1.2 </Typography>
+        <Typography variant="body2" color="textSecondary" align="center"> Current version Beta 0.1.3 </Typography>
         <Copyright />
         </Container>
       </footer>

@@ -47,7 +47,7 @@ export default function LandingPersonalization() {
           Fully customize your card looks
         </Typography>
         <div>
-          <Button className={classes.button} variant="contained"> What to share </Button>
+          {/*<Button className={classes.button} variant="contained"> What to share </Button>*/}
           <Button className={classes.button} variant="contained" color="primary"
             href="/signup" rel="noopener noreferrer"
           >
@@ -63,7 +63,7 @@ export default function LandingPersonalization() {
           </Typography>
         </div>
         </Grid>
-        <Grid style={{overflow:"hidden"}} item xs={12} lg={7}>
+        <Grid style={{overflow:"hidden"}} item xs={12} sm={6}>
           <div>
             <Carousel />
           </div>

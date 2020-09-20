@@ -42,7 +42,7 @@ export default function LandingHero() {
         className={classes.root}
       >
         <CssBaseline />
-        <Grid item xs={12} lg={6}>
+        <Grid item xs={12} sm={6}>
           <Typography variant="h4" align="left">
             Welcome to
           </Typography>
@@ -50,7 +50,7 @@ export default function LandingHero() {
             <u><strong>YOUR NEW <br/> PERSONAL CARD</strong></u>
           </Typography>
           <div>
-            <Button className={classes.button} variant="contained"> Learn More </Button>
+            {/*<Button className={classes.button} variant="contained"> Learn More </Button>*/}
             <Button className={classes.button} variant="contained" color="primary"
               href="/signup" rel="noopener noreferrer"
             >
@@ -62,10 +62,7 @@ export default function LandingHero() {
             <img src={playstoreLogo} className="App-logo" alt="logo" style={{height:"48px", width:"auto"}}/>
           </div>
         </Grid>
-        <Grid item component={Box} justify-self="flex-end" lg={4} display={{ xs: "none", lg: "block" }}>
-          <img src={HeroIllustration} className="App-logo" alt="logo" style= {{height: "400px", width: "auto"}} />
-        </Grid>
-        <Grid item component={Box} justify-self="flex-end" xs={12} display={{ xs: "block", sm: "none" }}>
+        <Grid item component={Box} justify-self="flex-end" xs={12} sm={4} display={{ xs: "block", sm: "block" }}>
           <img src={phoneMockup} className="App-logo" alt="logo" style= {{height: "auto", width: "100%"}} />
         </Grid>
       </Grid>

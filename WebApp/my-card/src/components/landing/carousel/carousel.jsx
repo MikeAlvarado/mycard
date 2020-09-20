@@ -6,14 +6,19 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import CarouselSlide from './slide';
 
-import sample1 from '../../../assets/carousel/sample1.jpg';
-import sample2 from '../../../assets/carousel/sample2.jpg';
-import sample3 from '../../../assets/carousel/sample3.png';
+import card1 from '../../../assets/carousel/card1.jpg';
+import card2 from '../../../assets/carousel/card2.jpg';
+import card3 from '../../../assets/carousel/card3.jpg';
+import card4 from '../../../assets/carousel/card4.jpg';
+import card5 from '../../../assets/carousel/card5.jpg';
 
 const slides = [
-    { backgroundImage: sample1, title: 'You choose what you share' },
-    { backgroundImage: sample2, title: 'You choose when to share' },
-    { backgroundImage: sample3, title: 'You choose who to share' },
+    { backgroundImage: card1, title: 'You choose what you share' },
+    { backgroundImage: card2, title: 'You choose when to share' },
+    { backgroundImage: card3, title: 'You choose who to share' },
+    { backgroundImage: card4, title: 'You choose who to share' },
+    { backgroundImage: card5, title: 'You choose who to share' },
+
 ];
 
 function Arrow(props) {
