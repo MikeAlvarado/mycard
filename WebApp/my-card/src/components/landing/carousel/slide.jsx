@@ -9,7 +9,7 @@ export default function CarouselSlide(props) {
             borderRadius: 8,
             margin: '0px 25px',
             // width: '500px',
-            // height: '300px',
+            maxHeight: '300px',
             boxShadow: '8px 8px 8px gray',
             display: 'flex',
             justifyContent: 'center',

@@ -60,12 +60,11 @@ export default function LandingInformation() {
               Sign Up
             </Button>
             <Typography variant="body1" align="left">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec scelerisque augue. Vivamus tristique condimentum pellentesque.
             </Typography>
             <Typography variant="body2" align="right" color="textSecondary">
               <br/>
-              <i>"Nam nisl ante, dapibus et urna quis, finibus consequat sapien."</i> <br/>
-              - Mike Alvarado
+              {/*<i>"Nam nisl ante, dapibus et urna quis, finibus consequat sapien."</i> <br/>
+              - Mike Alvarado*/}
             </Typography>
           </div>
         </Grid>

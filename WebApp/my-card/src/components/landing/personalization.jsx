@@ -39,12 +39,12 @@ export default function LandingPersonalization() {
         className={classes.root}
       >
         <CssBaseline />
-        <Grid item xs={12} lg={5}>
+        <Grid item xs={12} sm={5}>
         <Typography variant="h3" align="left">
-          You are in control
+
         </Typography>
         <Typography variant="h6" align="left">
-          Fully customize your card looks
+          Fully customize your card looks and the information you share!
         </Typography>
         <div>
           {/*<Button className={classes.button} variant="contained"> What to share </Button>*/}
@@ -54,11 +54,12 @@ export default function LandingPersonalization() {
             Sign Up
           </Button>
           <Typography variant="body1" align="left">
-            Personalize the outside, <br/> and the information you share on the inside.
+            Can be fully cutomized to fit your needs. <br/>
+            You can always choose what information you would like to share.
           </Typography>
           <Typography variant="body2" align="left" color="textSecondary">
             <br/>
-            You'll need to download the app to setup the card. <br />
+            <br />
             App is not required to read the card.
           </Typography>
         </div>

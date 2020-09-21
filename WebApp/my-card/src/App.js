@@ -29,6 +29,7 @@ import User from "./views/User/User";
 import Card from "./views/User/Card";
 import Settings from "./views/User/Settings";
 import CompatiblePhones from "./views/Compatibles";
+import AboutUs from "./views/AboutUs";
 
 let theme = createMuiTheme({
   overrides: {
@@ -75,6 +76,7 @@ export default function App() {
             <Route path={`${process.env.PUBLIC_URL}/welcome`} exact component={LandingPage} />
             <Route path={`${process.env.PUBLIC_URL}/settings`} exact component={Settings} />
             <Route path={`${process.env.PUBLIC_URL}/compatibility`} exact component={CompatiblePhones} />
+            <Route path={`${process.env.PUBLIC_URL}/about`} exact component={AboutUs} />
             <Route path="*">
               <NoMatch />
             </Route>

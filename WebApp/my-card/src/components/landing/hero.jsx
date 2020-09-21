@@ -57,10 +57,10 @@ export default function LandingHero() {
               Sign Up
             </Button>
           </div>
-          <div style={{paddingTop: "36px", display: "flex", alignItems: "center"}}>
+          {/*<div style={{paddingTop: "36px", display: "flex", alignItems: "center"}}>
             <img src={appstoreLogo} className="App-logo" alt="logo" style={{paddingTop: "8px", paddingBottom: "8px", paddingRight: "8px", height:"48px", width:"auto"}}/>
             <img src={playstoreLogo} className="App-logo" alt="logo" style={{height:"48px", width:"auto"}}/>
-          </div>
+          </div>*/}
         </Grid>
         <Grid item component={Box} justify-self="flex-end" xs={12} sm={4} display={{ xs: "block", sm: "block" }}>
           <img src={phoneMockup} className="App-logo" alt="logo" style= {{height: "auto", width: "100%"}} />
